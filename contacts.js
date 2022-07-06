@@ -10,21 +10,34 @@ async function listContacts() {
     return contacts;
 }
 
-async function getContactById(ContactId) {
+async function getContactById(contactId) {
     const data = await fs.readFile(contactsPath);
     const contacts = JSON.parse(data);
-    const result = contacts.find(item => item.id === ContactId);
+    const result = contacts.find(item => item.id === contactId);
+   
+    if (!result) {
+        return null;
+    }
     return result;
 }
 
-async function removeContact(contactId) {
-  
+async function removeContact(id) {
+  const data = await fs.readFile(contactsPath);
+    const contacts = JSON.parse(data);
+    const result = contacts.findIndex(contact => contact.id === id);
+    console.log(result);
+    if (result === -1) {
+        return null;
+    }
+    // const [removeContact] = contacts.splice(result, 1);
+    // await fs.writeFile(contactsPath, JSON.stringify(contacts));
+    // return removeContact;
 }
 
-async function addContact(data) {
+async function addContact(name, email, phone) {
     const contactsAll = await fs.readFile(contactsPath);
     const contacts = JSON.parse(contactsAll);
-    const newContact = { id: v4(), ...data };
+    const newContact = { id: v4(), name, email, phone};
     contacts.push(newContact);
     await fs.writeFile(contactsPath, JSON.stringify(contacts));
     return newContact;
