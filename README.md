@@ -13,3 +13,9 @@
 3. # Удаляем контакт
 
    node index.js --action remove --id=3
+   http://joxi.ru/YmEdDbDiGKJn0r
+
+4. # Получаем контакт по id
+
+   node index.js --action get --id 5
+   http://joxi.ru/a2XgQLQsQeDEGm
